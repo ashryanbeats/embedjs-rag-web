@@ -68,9 +68,10 @@ const getRagApplication = async () => {
 /**
  * Loads the resources specified in the dataUrls array.
  * @param {RAGApplication} ragApplication - The RAG application to load the resources into.
+ * @param {Array<string>} dataUrls - The URLs of the resources to load.
  * @returns {Promise<Array<LoaderSummary>>} The loader summaries for the resources.
  */
-const loadResources = async (ragApplication) => {
+const loadResources = async (ragApplication, dataUrls) => {
   const loaderSummaries = await Promise.all(
     dataUrls.map(async (url) => {
       console.log("Adding loader for:", url);
@@ -122,7 +123,7 @@ const promptRag = async (ragApplication, prompt) => {
  */
 const main = async () => {
   const ragApplication = await getRagApplication();
-  const loaderSummaries = await loadResources(ragApplication);
+  const loaderSummaries = await loadResources(ragApplication, dataUrls);
 
   if (loaderSummaries.length && loaderSummaries.length === dataUrls.length) {
     const prompt = getPrompt();
